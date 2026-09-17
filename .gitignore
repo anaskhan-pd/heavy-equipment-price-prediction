@@ -1,0 +1,30 @@
+# Python & Notebooks
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+
+# Datasets & Large Archives (Restricted / Competition Data)
+*.csv
+*.zip
+*.tar.gz
+*.parquet
+data/
+datasets/
+raw_data/
+
+# Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
