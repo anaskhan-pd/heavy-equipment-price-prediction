@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 
 > **Interactive Portfolio Website**: [**https://anaskhan-pd.github.io/heavy-equipment-price-prediction/**](https://anaskhan-pd.github.io/heavy-equipment-price-prediction/)  
-> **Academic Context**: IIT Madras BS Degree in Data Science & Applications — Machine Learning Practice (MLP 2026 T2)  
+> **Academic Context**: IIT Madras BS Degree in Data Science & Applications - Machine Learning Practice (MLP 2026 T2)  
 > **Author**: Anas Khan (Roll No: `24f100851`)  
 
 ---
@@ -172,26 +172,13 @@ Open your browser and navigate to `http://localhost:8080/`.
 
 ---
 
-## Publishing to GitHub Pages
-
-To activate the public showcase website:
-1. Go to your GitHub repository: [**anaskhan-pd/heavy-equipment-price-prediction**](https://github.com/anaskhan-pd/heavy-equipment-price-prediction).
-2. Click **Settings** $\rightarrow$ **Pages** (in the left navigation).
-3. Under **Build and deployment** $\rightarrow$ **Branch**:
-   - Select branch: `main`
-   - Select folder: `/docs`
-4. Click **Save**.
-5. Within 60 seconds, your site will be live at:  
-   👉 **`https://anaskhan-pd.github.io/heavy-equipment-price-prediction/`**
-
----
-
 ## Author & Academic Acknowledgements
 
 - **Author**: Anas Khan
 - **Degree**: BS in Data Science and Applications, **Indian Institute of Technology Madras (IIT Madras)**
 - **Course**: Machine Learning Practice (MLP) — 2026 Term 2
 - **GitHub**: [@anaskhan-pd](https://github.com/anaskhan-pd)
+- **Linkedin**: [@anaskhan-pd](https://www.linkedin.com/in/anaskhan-pd/).
 
 ---
 
