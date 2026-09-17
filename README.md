@@ -108,13 +108,6 @@ Because computing standard RMSE on log-transformed targets is mathematically equ
 - **Training Records**: 138,701 rows × 50 columns
 - **Test Records**: 15,000 rows × 49 columns
 - **Target**: `TargetValue` (Continuous auction transaction clearing price in USD)
-
-> [!IMPORTANT]
-> **Data Privacy & Storage Policy**:  
-> In compliance with Kaggle competition terms of use and GitHub repository file-size guidelines (raw files exceed 100MB+ uncompressed), raw CSV datasets (`train.csv`, `test.csv`) are strictly excluded from git tracking via `.gitignore`. 
-> 
-> To reproduce the results, download the dataset files directly from the Kaggle competition page and place them into the `data/` directory.
-
 ---
 
 ## Repository Structure
