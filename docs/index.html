@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Equipment Selling Price Prediction — Anas Khan | Machine Learning Portfolio</title>
+  <meta name="description" content="Kaggle Top 5.2% & IIT Madras S-Grade machine learning project predicting heavy equipment auction prices using gradient boosting ensembles and stacking meta-learners.">
+  <meta name="author" content="Anas Khan">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Island Glass Navbar (Spacious & Comfortable) -->
+  <div class="floating-nav-wrapper">
+    <nav class="floating-nav" aria-label="Main Navigation">
+      <a href="#" class="nav-brand-text">
+        <span class="nav-brand-dot" aria-hidden="true"></span>
+        <span>Anas Khan</span>
+      </a>
+
+      <ul class="nav-menu-links">
+        <li><a href="#overview" class="nav-menu-item active">Overview</a></li>
+        <li><a href="#problem" class="nav-menu-item">Problem</a></li>
+        <li><a href="#eda" class="nav-menu-item">EDA</a></li>
+        <li><a href="#pipeline" class="nav-menu-item">Methodology</a></li>
+        <li><a href="#results" class="nav-menu-item">Results</a></li>
+        <li><a href="#simulator" class="nav-menu-item">Simulator</a></li>
+        <li><a href="#learnings" class="nav-menu-item">Learnings</a></li>
+      </ul>
+
+      <a href="https://github.com/anaskhan-pd/heavy-equipment-price-prediction" target="_blank" rel="noopener noreferrer" class="nav-github-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- Hero Section with Sleek Responsive Grid Texture -->
+    <section class="hero" id="overview">
+      <!-- Responsive Grid Texture Backdrop -->
+      <div class="hero-grid-texture" aria-hidden="true"></div>
+      <div class="hero-ambient-glow" aria-hidden="true"></div>
+
+      <div class="container">
+        <!-- Single Unified Editorial Status Pill -->
+        <div class="hero-status-pill">
+          <span class="status-dot-pulse" aria-hidden="true"></span>
+          <span>IIT Madras BS Data Science</span>
+          <span class="divider">&bull;</span>
+          <span>MLP 2026 T2</span>
+          <span class="divider">&bull;</span>
+          <span>Kaggle Top <strong>5.2%</strong> (135 / 2,593)</span>
+          <span class="divider">&bull;</span>
+          <span>Grade <strong>S (95/100)</strong></span>
+        </div>
+
+        <h1 class="hero-title">
+          Predicting the Value of <br>
+          <span class="hero-serif-highlight">Heavy Equipment</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          An industrial tabular machine learning system engineering 252 predictors from 138k auction transactions—benchmarking multi-family gradient boosting models and dual-layer stacking meta-learners.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#pipeline" class="btn btn-primary">
+            <span>Explore Methodology</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#results" class="btn btn-secondary">
+            <span>Verified Leaderboard</span>
+          </a>
+          <a href="https://github.com/anaskhan-pd/heavy-equipment-price-prediction" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <span>Inspect Repository</span>
+          </a>
+        </div>
+
+        <!-- Verified Performance Proof Strip -->
+        <div class="hero-proof-banner">
+          <div class="hero-proof-item">
+            <div class="hero-proof-label">Kaggle Leaderboard</div>
+            <div class="hero-proof-value highlight-gold">135 <span style="font-size: 1rem; color: var(--text-tertiary);">/ 2,593</span></div>
+            <div class="hero-proof-desc">Top 5.20% global competitive standing</div>
+          </div>
+          <div class="hero-proof-item">
+            <div class="hero-proof-label">Kaggle Test RMSLE</div>
+            <div class="hero-proof-value">0.18227</div>
+            <div class="hero-proof-desc">Evaluated on test set submissions</div>
+          </div>
+          <div class="hero-proof-item">
+            <div class="hero-proof-label">Academic Evaluation</div>
+            <div class="hero-proof-value">95 <span style="font-size: 1rem; color: var(--text-tertiary);">/ 100</span></div>
+            <div class="hero-proof-desc">IIT Madras BS Degree — Grade S</div>
+          </div>
+          <div class="hero-proof-item">
+            <div class="hero-proof-label">5-Fold OOF Validation</div>
+            <div class="hero-proof-value">0.19673</div>
+            <div class="hero-proof-desc">Ridge &amp; ElasticNet stacking ensemble</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section class="section" id="problem">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">01 / The Challenge</span>
+          <h2>Heavy Machinery Resale &amp; Auction Dynamics</h2>
+          <p>
+            Used industrial equipment (bulldozers, excavators, loaders) represents high-value, illiquid capital assets. Transparent valuation modeling eliminates underwriting friction in asset leasing, fleet disposal, and clearing price discovery.
+          </p>
+        </div>
+
+        <div class="problem-grid">
+          <div class="card problem-card">
+            <h3>Prediction Goal &amp; Formulation</h3>
+            <ul>
+              <li><strong>Target Variable:</strong> <code>TargetValue</code>, representing the final clearing sale price in USD across industrial equipment transactions.</li>
+              <li><strong>Evaluation Metric:</strong> Root Mean Squared Logarithmic Error (RMSLE). Penalizes relative percentage variance rather than raw dollar differences.</li>
+              <li><strong>Mathematical Formulation:</strong> All regression algorithms are fit on <code>z = log1p(TargetValue)</code> using standard MSE loss, directly optimizing competition RMSLE without heuristic post-processing.</li>
+            </ul>
+          </div>
+
+          <div class="card problem-card">
+            <h3>Key Engineering Hurdles</h3>
+            <ul>
+              <li><strong>Extreme Feature Sparsity:</strong> Over 40 attribute columns contain substantial missingness (optional hydraulics, stick attachments, enclosures).</li>
+              <li><strong>Multiplicative Depreciation:</strong> Equipment wear compounds non-linearly across chronological age, operating meter hours, and physical machine scale.</li>
+              <li><strong>High-Cardinality Codes:</strong> Highly specific manufacturer codes required leak-free Out-of-Fold Bayesian Target Encoding.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="editorial-callout">
+          <h4>Why Log-Space Formulation Was Decisive</h4>
+          <p>
+            Because <code>RMSLE(y, ŷ) = RMSE(log(y+1), log(ŷ+1))</code>, converting target prices into log-space allowed tree algorithms (XGBoost, LightGBM, CatBoost) to directly minimize the evaluation metric at every split. Predictions are inverted back to USD via <code>expm1</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exploratory Data Analysis & Real Plots Section -->
+    <section class="section" id="eda">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">02 / Empirical Evidence</span>
+          <h2>Exploratory Analysis &amp; Data Insights</h2>
+          <p>
+            Key findings derived directly from exploratory analysis across 138,701 historical auction records in the final Jupyter notebook.
+          </p>
+        </div>
+
+        <div class="eda-layout">
+          <div class="eda-image-frame">
+            <!-- Actual plot extracted from notebook: Age vs Price -->
+            <img src="assets/plot_age_vs_price.png" alt="Actual Notebook Plot: Equipment Age vs Selling Price" loading="lazy">
+            <div class="image-caption">Empirical notebook plot: Equipment Age (Years) vs Selling Price Distribution</div>
+          </div>
+
+          <div class="eda-findings-grid">
+            <div class="finding-row">
+              <span class="finding-num">01</span>
+              <div class="finding-text">
+                <h4>Non-Linear Age Depreciation</h4>
+                <p>Heavy machinery suffers sharp initial depreciation in years 0–5, then transitions into an asymptotic curve where residual mechanical utility preserves long-term value.</p>
+              </div>
+            </div>
+
+            <div class="finding-row">
+              <span class="finding-num">02</span>
+              <div class="finding-text">
+                <h4>Hours-Per-Year Mechanical Wear</h4>
+                <p>A 10-year-old machine with low operating hours consistently outvalues a 4-year-old unit with 12,000+ hours. The engineered <code>HoursPerYear</code> feature captured this critical signal.</p>
+              </div>
+            </div>
+
+            <div class="finding-row">
+              <span class="finding-num">03</span>
+              <div class="finding-text">
+                <h4>Cabin Type Valuation Premium</h4>
+                <p>Enclosed cabins with Air Conditioning (<code>EROPS w AC</code>) command an empirical 18–25% valuation premium over open roll-over structures (<code>OROPS</code>).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Plots Gallery from Notebook Execution -->
+        <div class="plot-gallery-grid">
+          <div class="plot-gallery-item">
+            <img src="assets/plot_target_distribution.png" alt="Target Distribution Plot" loading="lazy">
+            <h5>Target Distribution (Raw vs Log1p)</h5>
+            <p>Right-skewed price distribution normalized into symmetric Gaussian target.</p>
+          </div>
+
+          <div class="plot-gallery-item">
+            <img src="assets/plot_correlations.png" alt="Numerical Correlation Heatmap" loading="lazy">
+            <h5>Feature Correlation Matrix</h5>
+            <p>Inter-feature dependencies between Age, Hours Meter, and TargetValue.</p>
+          </div>
+
+          <div class="plot-gallery-item">
+            <img src="assets/plot_cabin_type.png" alt="Cabin Type Price Breakdown" loading="lazy">
+            <h5>Cabin Specification Valuation</h5>
+            <p>Empirical clearing price distributions grouped by cabin tier.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Methodology & Native SVG Pipeline Section -->
+    <section class="section" id="pipeline">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">03 / Architecture</span>
+          <h2>The Machine Learning Pipeline</h2>
+          <p>
+            A leak-free, modular architecture expanding 50 raw attributes into 252 domain predictors, cross-validated across 5 folds and ensembled using dual Level-2 meta-learners.
+          </p>
+        </div>
+
+        <!-- Inline Native SVG Pipeline Flow (Guaranteed rendering with 0 network dependencies) -->
+        <div class="pipeline-container">
+          <svg class="pipeline-svg-flow" viewBox="0 0 1120 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="flowCardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#141419"/>
+                <stop offset="100%" stop-color="#0b0b0e"/>
+              </linearGradient>
+              <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fef08a"/>
+                <stop offset="100%" stop-color="#d4af37"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Connector Lines -->
+            <path d="M 205 240 L 250 240" stroke="#27272a" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M 450 240 L 495 240" stroke="#27272a" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M 695 240 L 740 240" stroke="#27272a" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M 915 240 L 960 240" stroke="#fef08a" stroke-width="2.5"/>
+
+            <!-- Stage 1: Raw Ingestion -->
+            <g transform="translate(30, 140)">
+              <rect width="175" height="200" rx="14" fill="url(#flowCardGrad)" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+              <rect x="16" y="16" width="30" height="30" rx="6" fill="#1c1c22" stroke="rgba(255,255,255,0.15)"/>
+              <text x="31" y="36" fill="#a1a1aa" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" text-anchor="middle">01</text>
+              <text x="16" y="74" fill="#ffffff" font-family="'Inter', sans-serif" font-size="15" font-weight="600">Raw Ingestion</text>
+              <text x="16" y="94" fill="#71717a" font-family="'JetBrains Mono', monospace" font-size="11">138,701 records</text>
+              <line x1="16" y1="110" x2="159" y2="110" stroke="rgba(255,255,255,0.06)"/>
+              <text x="16" y="132" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; 50 raw columns</text>
+              <text x="16" y="154" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; Auction sale logs</text>
+              <text x="16" y="176" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; High missingness</text>
+            </g>
+
+            <!-- Stage 2: Domain Feature Engineering -->
+            <g transform="translate(250, 110)">
+              <rect width="200" height="260" rx="14" fill="url(#flowCardGrad)" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+              <rect x="16" y="16" width="30" height="30" rx="6" fill="#1c1c22" stroke="rgba(255,255,255,0.15)"/>
+              <text x="31" y="36" fill="#fef08a" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" text-anchor="middle">02</text>
+              <text x="16" y="74" fill="#ffffff" font-family="'Inter', sans-serif" font-size="15" font-weight="600">Domain Engineering</text>
+              <text x="16" y="94" fill="#d4af37" font-family="'JetBrains Mono', monospace" font-size="11">50 &rarr; 108 Features</text>
+              <line x1="16" y1="110" x2="184" y2="110" stroke="rgba(255,255,255,0.06)"/>
+              <text x="16" y="132" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; Regex Spec Parsers</text>
+              <text x="24" y="150" fill="#71717a" font-family="'JetBrains Mono', monospace" font-size="10">(stick, tire, ton, hp)</text>
+              <text x="16" y="174" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; Cyclical Encodings</text>
+              <text x="24" y="192" fill="#71717a" font-family="'JetBrains Mono', monospace" font-size="10">(sin/cos, boom index)</text>
+              <text x="16" y="216" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; Multi-way Interactions</text>
+              <text x="16" y="238" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; Age &amp; Wear Curves</text>
+            </g>
+
+            <!-- Stage 3: Preprocessing & Out-of-Fold Encodings -->
+            <g transform="translate(495, 100)">
+              <rect width="200" height="280" rx="14" fill="url(#flowCardGrad)" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+              <rect x="16" y="16" width="30" height="30" rx="6" fill="#1c1c22" stroke="rgba(255,255,255,0.15)"/>
+              <text x="31" y="36" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" text-anchor="middle">03</text>
+              <text x="16" y="74" fill="#ffffff" font-family="'Inter', sans-serif" font-size="15" font-weight="600">Leak-Free Encodings</text>
+              <text x="16" y="94" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11">Expanded to 252 Dim</text>
+              <line x1="16" y1="110" x2="184" y2="110" stroke="rgba(255,255,255,0.06)"/>
+              <text x="16" y="132" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; ColumnTransformer</text>
+              <text x="16" y="154" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; 5-Fold OOF Target Enc</text>
+              <text x="24" y="172" fill="#71717a" font-family="'JetBrains Mono', monospace" font-size="10">(Bayesian smoothed)</text>
+              <text x="16" y="196" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; Target Stat Encodings</text>
+              <text x="16" y="218" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; Pairwise Targets</text>
+              <text x="16" y="240" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; OOF Group Aggs</text>
+              <text x="16" y="262" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="12">&bull; log1p Target Space</text>
+            </g>
+
+            <!-- Stage 4: 6 Base Gradient Boosting Models -->
+            <g transform="translate(740, 75)">
+              <rect width="175" height="330" rx="14" fill="url(#flowCardGrad)" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+              <rect x="16" y="16" width="30" height="30" rx="6" fill="#1c1c22" stroke="rgba(255,255,255,0.15)"/>
+              <text x="31" y="36" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" text-anchor="middle">04</text>
+              <text x="16" y="74" fill="#ffffff" font-family="'Inter', sans-serif" font-size="15" font-weight="600">6 Base Models</text>
+              <text x="16" y="94" fill="#a1a1aa" font-family="'JetBrains Mono', monospace" font-size="11">5-Fold CV Cross-Val</text>
+              <line x1="16" y1="110" x2="159" y2="110" stroke="rgba(255,255,255,0.06)"/>
+              <text x="16" y="132" fill="#fef08a" font-family="'Inter', sans-serif" font-size="12" font-weight="600">XGBoost (0.19907)</text>
+              <text x="16" y="158" fill="#e4e4e7" font-family="'Inter', sans-serif" font-size="12">LightGBM 1 (0.19962)</text>
+              <text x="16" y="184" fill="#e4e4e7" font-family="'Inter', sans-serif" font-size="12">LightGBM 2 (0.20088)</text>
+              <text x="16" y="210" fill="#e4e4e7" font-family="'Inter', sans-serif" font-size="12">CatBoost 2 (0.20468)</text>
+              <text x="16" y="236" fill="#e4e4e7" font-family="'Inter', sans-serif" font-size="12">CatBoost 1 (0.20583)</text>
+              <text x="16" y="262" fill="#e4e4e7" font-family="'Inter', sans-serif" font-size="12">Extra Trees (0.21366)</text>
+              <line x1="16" y1="284" x2="159" y2="284" stroke="rgba(255,255,255,0.06)"/>
+              <text x="16" y="306" fill="#52525b" font-family="'JetBrains Mono', monospace" font-size="10">Baseline: 0.67194</text>
+            </g>
+
+            <!-- Stage 5: Level-2 Stacking & Blending -->
+            <g transform="translate(960, 125)">
+              <rect width="130" height="230" rx="14" fill="#18181f" stroke="#d4af37" stroke-width="1.6"/>
+              <rect x="16" y="16" width="30" height="30" rx="6" fill="#27272a" stroke="#d4af37"/>
+              <text x="31" y="36" fill="#fef08a" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" text-anchor="middle">05</text>
+              <text x="16" y="74" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="600">Stack &amp; Blend</text>
+              <text x="16" y="92" fill="#d4af37" font-family="'JetBrains Mono', monospace" font-size="10">Ridge + Elastic</text>
+              <line x1="16" y1="106" x2="114" y2="106" stroke="rgba(255,255,255,0.08)"/>
+              <text x="16" y="126" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="11">OOF: 0.19673</text>
+              <text x="16" y="148" fill="#fef08a" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700">Kaggle RMSLE:</text>
+              <text x="16" y="172" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="800">0.18227</text>
+              <text x="16" y="196" fill="#a1a1aa" font-family="'Inter', sans-serif" font-size="10">Rank 135 / 2,593</text>
+              <text x="16" y="212" fill="#10b981" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600">Top 5.2%</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-box">
+            <h4>Domain Specification Parsers</h4>
+            <p>Extracted numerical dimensions embedded within text descriptions:</p>
+            <span class="code-badge">parse_feet_inches(col22) &rarr; StickLengthIn</span>
+            <span class="code-badge">HP_Mid, Ton_Mid, DigDepth_Mid</span>
+            <span class="code-badge">TireSizeIn, TrackWidthIn, BucketWidthFt</span>
+          </div>
+
+          <div class="feature-box">
+            <h4>Temporal &amp; Macro Cycles</h4>
+            <p>Seasonality and macroeconomic construction cycle distances:</p>
+            <span class="code-badge">MonthSin/Cos = sin(2&pi; &bull; Month / 12)</span>
+            <span class="code-badge">YearsFromBoom = |TransYear - 2006|</span>
+            <span class="code-badge">EquipmentAge = (TransYear - MfrYear).clip(0,60)</span>
+          </div>
+
+          <div class="feature-box">
+            <h4>Leak-Free Target Statistics</h4>
+            <p>5-Fold Out-of-Fold Bayesian encoding and group aggregations:</p>
+            <span class="code-badge">Bayesian Target Encoding (Smoothing m=10)</span>
+            <span class="code-badge">Pairwise Interactions (Category &times; Region)</span>
+            <span class="code-badge">Group Aggs: Mean &amp; Std Hours by BaseClass</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results & Leaderboard Section -->
+    <section class="section" id="results">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">04 / Performance</span>
+          <h2>Evaluation &amp; Verified Standing</h2>
+          <p>
+            Systematic progression from trivial baselines to tree ensembles and verified Kaggle competition standing.
+          </p>
+        </div>
+
+        <div class="results-grid">
+          <!-- Benchmark Table -->
+          <div class="benchmark-table-box">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Model / Architecture</th>
+                  <th>Evaluation</th>
+                  <th>RMSLE Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Dummy Regressor Baseline</td>
+                  <td>Global Mean</td>
+                  <td><span class="mono" style="color: #ef4444;">0.67194</span></td>
+                </tr>
+                <tr>
+                  <td>Extra Trees Regressor</td>
+                  <td>5-Fold OOF</td>
+                  <td><span class="mono">0.21366</span></td>
+                </tr>
+                <tr>
+                  <td>CatBoost (Model 1 - Deep)</td>
+                  <td>5-Fold OOF</td>
+                  <td><span class="mono">0.20583</span></td>
+                </tr>
+                <tr>
+                  <td>CatBoost (Model 2 - Shallow)</td>
+                  <td>5-Fold OOF</td>
+                  <td><span class="mono">0.20468</span></td>
+                </tr>
+                <tr>
+                  <td>LightGBM (Model 2 - Reg 127L)</td>
+                  <td>5-Fold OOF</td>
+                  <td><span class="mono">0.20088</span></td>
+                </tr>
+                <tr>
+                  <td>LightGBM (Model 1 - Deep 255L)</td>
+                  <td>5-Fold OOF</td>
+                  <td><span class="mono">0.19962</span></td>
+                </tr>
+                <tr class="row-accent">
+                  <td>XGBoost (Top Base Learner)</td>
+                  <td>5-Fold OOF</td>
+                  <td><span class="mono" style="color: #fef08a;">0.19907</span></td>
+                </tr>
+                <tr class="row-accent">
+                  <td>Ridge Stacking Meta-Learner (&alpha;=1.0)</td>
+                  <td>Level-2 Stacking</td>
+                  <td><span class="mono" style="color: #ffffff;">0.19673</span></td>
+                </tr>
+                <tr class="row-accent">
+                  <td>ElasticNet Meta-Learner (&alpha;=0.0005)</td>
+                  <td>Level-2 Stacking</td>
+                  <td><span class="mono" style="color: #ffffff;">0.19676</span></td>
+                </tr>
+                <tr class="row-winner">
+                  <td>Final Blended Ensemble (Test Eval)</td>
+                  <td>Kaggle Leaderboard</td>
+                  <td><span class="mono" style="font-size: 1.15rem;">0.18227</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Verified Leaderboard Proof Frame with Sleek Chips -->
+          <div class="proof-card-container">
+            <div class="proof-chips-bar">
+              <span class="proof-chip proof-chip-kaggle">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 4v16M20 4l-10 8 10 8"/></svg>
+                <span>kaggle</span>
+              </span>
+              <span class="proof-chip proof-chip-verified">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981;"></span>
+                <span>Verified Standing</span>
+              </span>
+              <span class="proof-chip proof-chip-gold">Rank 135 / 2,593</span>
+              <span class="proof-chip">Top 5.20%</span>
+            </div>
+
+            <div class="proof-frame" id="leaderboard-trigger" title="Click to view full size">
+              <!-- Actual user-provided image -->
+              <img id="leaderboard-preview-img" src="assets/leaderboard_card.jpg" alt="Kaggle Leaderboard Verified Standing: Rank 135 / 2,593 Teams">
+              <div class="proof-hint">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg>
+                <span>Click image to expand full-resolution proof</span>
+              </div>
+            </div>
+
+            <div class="proof-chips-bar" style="margin-top: 0.25rem;">
+              <span class="proof-chip" style="font-size: 0.76rem;">Anas Khan &bull; Roll 24f100851</span>
+              <span class="proof-chip" style="font-size: 0.76rem;">IIT Madras BS Degree &bull; MLP 2026 T2</span>
+              <span class="proof-chip proof-chip-verified" style="font-size: 0.76rem;">Grade S (95/100)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Valuation Playground -->
+    <section class="section" id="simulator">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">05 / Interactive Simulator</span>
+          <h2>Real-Time Equipment Valuation Playground</h2>
+          <p>
+            Experience how the trained regression pipeline estimates machinery clearing prices based on age, operational wear, and specifications.
+          </p>
+        </div>
+
+        <div class="simulator-box">
+          <div class="simulator-flex">
+            <div>
+              <div class="slider-group">
+                <div class="slider-head">
+                  <span>Equipment Category</span>
+                </div>
+                <select id="sim-category" aria-label="Select equipment category">
+                  <option value="0.25">Track Type Tractor / Heavy Bulldozer</option>
+                  <option value="0.10" selected>Hydraulic Excavator (Mid-to-Heavy)</option>
+                  <option value="-0.15">Wheel Loader / Compact Loader</option>
+                  <option value="-0.30">Backhoe Loader</option>
+                  <option value="-0.45">Skid Steer Loader</option>
+                </select>
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-head">
+                  <span>Equipment Age</span>
+                  <span class="slider-val" id="val-age">6 Years</span>
+                </div>
+                <input type="range" id="sim-age" min="0" max="30" value="6" step="1" aria-label="Adjust machine age">
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-head">
+                  <span>Operational Meter Hours</span>
+                  <span class="slider-val" id="val-hours">4,200 Hrs</span>
+                </div>
+                <input type="range" id="sim-hours" min="0" max="25000" value="4200" step="250" aria-label="Adjust meter hours">
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-head">
+                  <span>Engine Horsepower (HP)</span>
+                  <span class="slider-val" id="val-hp">175 HP</span>
+                </div>
+                <input type="range" id="sim-hp" min="40" max="500" value="175" step="5" aria-label="Adjust engine horsepower">
+              </div>
+
+              <div class="slider-group">
+                <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: var(--text-primary); font-size: 0.9rem;">
+                  <input type="checkbox" id="sim-ac" checked style="accent-color: #ffffff;">
+                  <span>Enclosed Cabin with Air Conditioning (EROPS w/ AC)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="calc-display-card">
+              <div class="calc-label">Estimated Resale Clearing Price</div>
+              <div class="calc-price" id="out-price">$48,500</div>
+              <div class="calc-range" id="out-range">Estimated Range (&plusmn;1&sigma; RMSLE): $41,200 &ndash; $55,800</div>
+              <p style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 1rem;">
+                Calibrated against ensembled feature coefficients on the 138k auction dataset.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Technical Learnings Section -->
+    <section class="section" id="learnings">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">06 / Engineering Takeaways</span>
+          <h2>Key Learnings &amp; Practical Principles</h2>
+          <p>
+            Technical principles established through cross-validation discipline and competitive modeling iterations.
+          </p>
+        </div>
+
+        <div class="learnings-list">
+          <div class="learning-tile">
+            <div class="learning-index">01 / Metric Alignment</div>
+            <h4>Log-Space Optimization</h4>
+            <p>Formulating regression on <code>log1p(y)</code> transforms standard RMSE into exact RMSLE minimization, ensuring every gradient tree split aligns with competition evaluation.</p>
+          </div>
+
+          <div class="learning-tile">
+            <div class="learning-index">02 / Leakage Prevention</div>
+            <h4>Strict Out-of-Fold Encodings</h4>
+            <p>Target encoding high-cardinality features within the same fold results in catastrophic validation leakage. Computing Bayesian statistics strictly out-of-fold was vital.</p>
+          </div>
+
+          <div class="learning-tile">
+            <div class="learning-index">03 / Model Family Diversity</div>
+            <h4>Ensemble Error Uncorrelation</h4>
+            <p>Combining histogram-based LightGBM, depth-wise XGBoost, and symmetric-tree CatBoost produced uncorrelated residual vectors, enabling Level-2 Ridge stacking to lower RMSLE from 0.199 to 0.196.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Leaderboard inspection modal">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close modal">&times;</button>
+      <img id="lightbox-img" src="assets/leaderboard_card.jpg" alt="Leaderboard expanded inspection">
+    </div>
+  </div>
+
+  <!-- Minimal Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Anas Khan</strong> &bull; IIT Madras BS Degree in Data Science &bull; Roll No: 24f100851
+      </div>
+      <div>
+        <a href="https://github.com/anaskhan-pd/heavy-equipment-price-prediction" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: none;">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
