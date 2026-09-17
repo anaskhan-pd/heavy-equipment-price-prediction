@@ -6,21 +6,23 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavSpy();
+  initMobileNav();
   initValuationSimulator();
   initLightbox();
   checkLeaderboardImage();
 });
 
 /* -------------------------------------------------------------------
-   1. Active Navigation Spy & Smooth Scroll
+   1. Active Navigation Spy & Smooth Scroll Offset
    ------------------------------------------------------------------- */
 function initNavSpy() {
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const navItems = document.querySelectorAll('.nav-menu-item');
 
-  window.addEventListener('scroll', () => {
+  function updateActiveLink() {
     let current = '';
-    const scrollPosition = window.pageYOffset + 120;
+    // Offset accounts for floating navbar height and top margin
+    const scrollPosition = window.pageYOffset + 140;
 
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
@@ -30,33 +32,86 @@ function initNavSpy() {
       }
     });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === `#${current}`) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink();
+}
+
+/* -------------------------------------------------------------------
+   1b. Mobile Navigation Drawer & Hamburger Controller
+   ------------------------------------------------------------------- */
+function initMobileNav() {
+  const hamburgerBtn = document.getElementById('nav-hamburger-btn');
+  const dropdown = document.getElementById('nav-menu-dropdown');
+  const backdrop = document.getElementById('nav-backdrop');
+  const navLinks = document.querySelectorAll('.nav-menu-item, .nav-menu-dropdown .nav-github-btn');
+
+  if (!hamburgerBtn || !dropdown) return;
+
+  function openMobileMenu() {
+    hamburgerBtn.classList.add('is-active');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    dropdown.classList.add('is-open');
+    if (backdrop) backdrop.classList.add('is-visible');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeMobileMenu() {
+    hamburgerBtn.classList.remove('is-active');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    dropdown.classList.remove('is-open');
+    if (backdrop) backdrop.classList.remove('is-visible');
+    document.body.classList.remove('menu-open');
+  }
+
+  function toggleMobileMenu() {
+    const isOpen = dropdown.classList.contains('is-open');
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMobileMenu();
+  });
+
+  // Auto-close menu when clicking any nav item
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (dropdown.classList.contains('is-open')) {
+        closeMobileMenu();
       }
     });
   });
 
-  // Mobile menu toggle
-  const toggleBtn = document.querySelector('.mobile-menu-toggle');
-  const navLinksList = document.querySelector('.nav-links');
-  if (toggleBtn && navLinksList) {
-    toggleBtn.addEventListener('click', () => {
-      const isVisible = navLinksList.style.display === 'flex';
-      navLinksList.style.display = isVisible ? 'none' : 'flex';
-      if (!isVisible) {
-        navLinksList.style.flexDirection = 'column';
-        navLinksList.style.position = 'absolute';
-        navLinksList.style.top = '64px';
-        navLinksList.style.left = '0';
-        navLinksList.style.right = '0';
-        navLinksList.style.background = '#090b10';
-        navLinksList.style.padding = '1.5rem';
-        navLinksList.style.borderBottom = '1px solid var(--border-medium)';
-      }
-    });
+  // Close when clicking outside on the backdrop
+  if (backdrop) {
+    backdrop.addEventListener('click', closeMobileMenu);
   }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dropdown.classList.contains('is-open')) {
+      closeMobileMenu();
+    }
+  });
+
+  // Handle resize from mobile to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 960 && dropdown.classList.contains('is-open')) {
+      closeMobileMenu();
+    }
+  }, { passive: true });
 }
 
 /* -------------------------------------------------------------------
