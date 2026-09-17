@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="700" height="360" rx="12" fill="#0d1017" stroke="#1e2433" stroke-width="1.2"/>
+
+  <!-- Chart Header -->
+  <text x="32" y="38" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="14" font-weight="600">Equipment Valuation Dynamics: Age &amp; Depreciation Decay</text>
+  <text x="32" y="56" fill="#64748b" font-family="-apple-system, sans-serif" font-size="11">Empirical TargetValue ($) vs Equipment Age (Years) with Enclosed vs Open Cabin Tier</text>
+
+  <!-- Legend -->
+  <g transform="translate(480, 26)">
+    <circle cx="8" cy="8" r="4" fill="#38bdf8"/>
+    <text x="18" y="12" fill="#cbd5e1" font-family="monospace" font-size="11">EROPS w/ AC</text>
+    <circle cx="110" cy="8" r="4" fill="#94a3b8"/>
+    <text x="120" y="12" fill="#64748b" font-family="monospace" font-size="11">OROPS Base</text>
+  </g>
+
+  <!-- Grid Lines -->
+  <g stroke="#1a202c" stroke-width="1">
+    <line x1="60" y1="90" x2="650" y2="90"/>
+    <line x1="60" y1="145" x2="650" y2="145"/>
+    <line x1="60" y1="200" x2="650" y2="200"/>
+    <line x1="60" y1="255" x2="650" y2="255"/>
+    <line x1="60" y1="310" x2="650" y2="310" stroke="#334155" stroke-width="1.5"/>
+  </g>
+
+  <!-- Y-Axis Labels (USD Price) -->
+  <text x="50" y="94" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">$80k</text>
+  <text x="50" y="149" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">$60k</text>
+  <text x="50" y="204" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">$40k</text>
+  <text x="50" y="259" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">$20k</text>
+  <text x="50" y="314" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">$0k</text>
+
+  <!-- X-Axis Labels (Age in Years) -->
+  <text x="70" y="328" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">0 Yrs</text>
+  <text x="165" y="328" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">5 Yrs</text>
+  <text x="260" y="328" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">10 Yrs</text>
+  <text x="355" y="328" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">15 Yrs</text>
+  <text x="450" y="328" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">20 Yrs</text>
+  <text x="545" y="328" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">25 Yrs</text>
+  <text x="640" y="328" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">30+ Yrs</text>
+
+  <!-- Shaded Area Under Curve -->
+  <path d="M 70 105 Q 140 180, 240 225 T 450 268 T 640 282 L 640 310 L 70 310 Z" fill="url(#areaGrad)"/>
+
+  <!-- Curve 1: Premium (EROPS with AC) -->
+  <path d="M 70 105 Q 140 180, 240 225 T 450 268 T 640 282" fill="none" stroke="url(#curveGrad)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Curve 2: Standard (OROPS) -->
+  <path d="M 70 140 Q 140 210, 240 248 T 450 282 T 640 294" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/>
+
+  <!-- Key Annotation Callout 1: Initial Steep Depreciation -->
+  <g transform="translate(130, 120)">
+    <circle cx="0" cy="0" r="4" fill="#38bdf8"/>
+    <line x1="0" y1="0" x2="30" y2="-25" stroke="#38bdf8" stroke-width="1"/>
+    <rect x="30" y="-40" width="125" height="24" rx="4" fill="#182234" stroke="#0284c7" stroke-width="1"/>
+    <text x="38" y="-24" fill="#7dd3fc" font-family="-apple-system, sans-serif" font-size="10" font-weight="600">-42% Initial 5-Yr Drop</text>
+  </g>
+
+  <!-- Key Annotation Callout 2: Long-tail Residual Value -->
+  <g transform="translate(480, 270)">
+    <circle cx="0" cy="0" r="4" fill="#818cf8"/>
+    <line x1="0" y1="0" x2="25" y2="-30" stroke="#818cf8" stroke-width="1"/>
+    <rect x="25" y="-45" width="135" height="24" rx="4" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+    <text x="33" y="-29" fill="#c7d2fe" font-family="-apple-system, sans-serif" font-size="10" font-weight="600">Stable Residual Utility</text>
+  </g>
+</svg>
